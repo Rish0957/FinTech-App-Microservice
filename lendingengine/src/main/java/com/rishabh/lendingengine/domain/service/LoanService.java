@@ -32,14 +32,7 @@ public class LoanService {
     public void acceptLoan(final long loanApplicationId, final String username){
         User lender = findUser(username);
         LoanApplication loanApplication = findLoan(loanApplicationId);
-        User borrower = loanApplication.getBorrower();
-        if(lender.getUsername()!=borrower.getUsername()){
-            Money money = loanApplication.getAmount();
-            lender.withdraw(money);
-            borrower.topUp(money);
-            loanrepository.save(new Loan(lender,loanApplication));
-            loanApplicationRepository.deleteById(loanApplicationId);
-        }
+        loanrepository.save(loanApplication.acceptLoanApplication(lender));
     }
 
     @Transactional
@@ -58,11 +51,11 @@ public class LoanService {
        return loanrepository.findAll();
     }
 
-    public List<Loan> findBorrowedLoans(final User borrower) {
-        return loanrepository.findByBorrower(borrower);
+    public List<Loan> findBorrowedLoans(final User borrower,final Status status) {
+        return loanrepository.findByBorrowerAndStatus(borrower,status);
     }
-    public List<Loan> findLentLoans(final User lender) {
-        return loanrepository.findByLender(lender);
+    public List<Loan> findLentLoans(final User lender,final Status status) {
+        return loanrepository.findByLenderAndStatus(lender,status);
     }
 
     public Loan getLoanById(long loanId) {

@@ -1,11 +1,9 @@
 package com.rishabh.lendingengine.application;
 
 import com.rishabh.lendingengine.application.service.TokenValidationService;
+import com.rishabh.lendingengine.application.service.impl.TokenValidationServiceImpl;
 import com.rishabh.lendingengine.domain.model.User;
-import com.rishabh.lendingengine.domain.repository.LoanApplicationRepository;
 import com.rishabh.lendingengine.domain.repository.UserRepository;
-import com.rishabh.lendingengine.domain.service.LoanApplicationAdapter;
-import com.rishabh.lendingengine.domain.service.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.GetMapping;

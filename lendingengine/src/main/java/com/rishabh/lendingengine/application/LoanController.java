@@ -3,8 +3,10 @@ package com.rishabh.lendingengine.application;
 import com.rishabh.lendingengine.application.model.LoanRepaymentRequest;
 import com.rishabh.lendingengine.application.model.LoanRequest;
 import com.rishabh.lendingengine.application.service.TokenValidationService;
+import com.rishabh.lendingengine.application.service.impl.TokenValidationServiceImpl;
 import com.rishabh.lendingengine.domain.model.Loan;
 import com.rishabh.lendingengine.domain.model.LoanApplication;
+import com.rishabh.lendingengine.domain.model.Status;
 import com.rishabh.lendingengine.domain.model.User;
 import com.rishabh.lendingengine.domain.repository.LoanApplicationRepository;
 import com.rishabh.lendingengine.domain.service.LoanApplicationAdapter;
@@ -41,19 +43,19 @@ public class LoanController {
     @GetMapping(value = "/loan/requests")
     public List<LoanApplication> getAllRequests(HttpServletRequest request){
         tokenValidationService.validateToken(request.getHeader(HttpHeaders.AUTHORIZATION));
-        return loanApplicationRepository.findAll();
+        return loanApplicationRepository.findAllByStatusEquals(Status.ONGOING);
     }
 
-    @GetMapping(value="/loan/borrowed")
-    public List<Loan> findBorrowedLoans(@RequestHeader String authorization){
+    @GetMapping(value="/loan/{status}/borrowed")
+    public List<Loan> findBorrowedLoans(@RequestHeader String authorization,@PathVariable Status status){
         User borrower = tokenValidationService.validateToken(authorization);
-        return loanService.findBorrowedLoans(borrower);
+        return loanService.findBorrowedLoans(borrower,status);
     }
 
-    @GetMapping(value = "/loan/lent")
-    public List<Loan> findLentLoans(@RequestHeader String authorization){
+    @GetMapping(value = "/loan/{status}/lent")
+    public List<Loan> findLentLoans(@RequestHeader String authorization,@PathVariable Status status){
         User lender = tokenValidationService.validateToken(authorization);
-        return loanService.findLentLoans(lender);
+        return loanService.findLentLoans(lender,status);
     }
 
     @PostMapping(value = "/loan/repay")
