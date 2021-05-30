@@ -8,7 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AuthenticationServiceApplication implements CommandLineRunner {
+public class AuthenticationServiceApplication {
 	@Autowired
 	private UserRepository userRepository;
 
@@ -16,12 +16,4 @@ public class AuthenticationServiceApplication implements CommandLineRunner {
 		SpringApplication.run(AuthenticationServiceApplication.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-		userRepository.save(new User("Rishabh","Khandelwal"));
-		userRepository.save(new User("Rahul","Agrawal"));
-		userRepository.save(new User("Gaurav","Patidar"));
-		userRepository.save(new User("Munendra","Dhayal"));
-		userRepository.save(new User("Lekhu","Kumawat"));
-	}
 }

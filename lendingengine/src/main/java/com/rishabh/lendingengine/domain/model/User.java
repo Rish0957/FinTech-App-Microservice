@@ -31,6 +31,12 @@ public class User {
         this.balance = balance;
     }
 
+    public void setBalance(Balance balance){
+        if(this.balance==null){
+            this.balance=balance;
+        }
+    }
+
     public void topUp(final Money money){
         balance.topUp(money);
     }

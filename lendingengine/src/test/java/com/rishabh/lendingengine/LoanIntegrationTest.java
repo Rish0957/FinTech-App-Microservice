@@ -35,22 +35,22 @@ public class LoanIntegrationTest {
     @LocalServerPort
     private int serverPort;
 
-    @Test
-    public void givenLoanRequestIsMadeLoanApplicationGetsCreated() throws Exception{
-        final String baseURL = "http://localhost:"+serverPort+"/loan";
-        HttpHeaders httpHeaders = getHttpHeaders();
-
-        HttpEntity<LoanRequest> request = new HttpEntity<>(new LoanRequest(500,365,5.2),httpHeaders);
-
-        testRestTemplate.postForEntity(baseURL+"/request", request,String.class);
-
-        ResponseEntity<String> response = testRestTemplate.exchange(baseURL+"/requests",HttpMethod.GET,
-                new HttpEntity(null,getHttpHeaders()),String.class);
-
-        List<LoanApplicationDTO> loanApplicationDTOS = GSON.fromJson(response.getBody(), new TypeToken<List<LoanApplicationDTO>>(){}.getType());
-        assertEquals(1,loanApplicationDTOS.size());
-        assertEquals(loanApplicationDTOS.get(0).getBorrower().getUsername(),RISHABH);
-    }
+//    @Test
+//    public void givenLoanRequestIsMadeLoanApplicationGetsCreated() throws Exception{
+//        final String baseURL = "http://localhost:"+serverPort+"/loan";
+//        HttpHeaders httpHeaders = getHttpHeaders();
+//
+//        HttpEntity<LoanRequest> request = new HttpEntity<>(new LoanRequest(500,365,5.2),httpHeaders);
+//
+//        testRestTemplate.postForEntity(baseURL+"/request", request,String.class);
+//
+//        ResponseEntity<String> response = testRestTemplate.exchange(baseURL+"/requests",HttpMethod.GET,
+//                new HttpEntity(null,getHttpHeaders()),String.class);
+//
+//        List<LoanApplicationDTO> loanApplicationDTOS = GSON.fromJson(response.getBody(), new TypeToken<List<LoanApplicationDTO>>(){}.getType());
+//        assertEquals(1,loanApplicationDTOS.size());
+//        assertEquals(loanApplicationDTOS.get(0).getBorrower().getUsername(),RISHABH);
+//    }
 
     private HttpHeaders getHttpHeaders() {
         HttpHeaders httpHeaders = new HttpHeaders();

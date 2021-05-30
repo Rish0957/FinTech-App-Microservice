@@ -5,8 +5,8 @@ public class UserDTO {
 
     private String username;
     private String password;
-    private String firstName;
-    private String lastName;
+    private String first_name;
+    private String last_name;
     private int age;
     private String occupation;
 
@@ -21,12 +21,12 @@ public class UserDTO {
         return password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLast_name() {
+        return last_name;
     }
 
     public int getAge() {
